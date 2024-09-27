@@ -29,12 +29,14 @@ public class Magasin {
 
 
     public void afficherCaracteristiques() {
-        System.out.println("tn.tuniprob.gestionmagasin.Magasin ID: " + id + ", Adresse: " + adresse);
+        System.out.println("Magasin ID: " + id + ", Adresse: " + adresse);
         System.out.println("Capacité: " + capacite + " produits");
         System.out.println("Produits dans le magasin:");
+
         for (int i = 0; i < produits.length; i++) {
-            produit produit = produits[i];
-            System.out.println("- Nom: " + produit.getLibelle() + ", Prix: " + produit.getPrix());
+            if (produits[i] != null) { // Vérifier que le produit n'est pas null avant d'accéder à ses méthodes
+                System.out.println("- Nom: " + produits[i].getLibelle() + ", Prix: " + produits[i].getPrix());
+            }
         }
     }
 
