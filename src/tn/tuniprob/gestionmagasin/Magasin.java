@@ -1,3 +1,5 @@
+package tn.tuniprob.gestionmagasin;
+
 public class Magasin {
 
     private int id;
@@ -27,7 +29,7 @@ public class Magasin {
 
 
     public void afficherCaracteristiques() {
-        System.out.println("Magasin ID: " + id + ", Adresse: " + adresse);
+        System.out.println("tn.tuniprob.gestionmagasin.Magasin ID: " + id + ", Adresse: " + adresse);
         System.out.println("Capacité: " + capacite + " produits");
         System.out.println("Produits dans le magasin:");
         for (int i = 0; i < produits.length; i++) {

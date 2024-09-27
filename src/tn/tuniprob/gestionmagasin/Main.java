@@ -1,3 +1,5 @@
+package tn.tuniprob.gestionmagasin;
+
 import java.util.Date;
 
 
@@ -50,7 +52,7 @@ public class Main {
         System.out.println("\nCaractéristiques du magasin 1 :");
         magasin1.afficherCaracteristiques();
         Magasin magasin2 = new Magasin(2,"Centre urbain nord");
-        magasin2.ajouterProduit(produit1);
+        magasin2.ajouterProduit(produit3);
         System.out.println("\nCaractéristiques du magasin 2 :");
         magasin2.afficherCaracteristiques();
 

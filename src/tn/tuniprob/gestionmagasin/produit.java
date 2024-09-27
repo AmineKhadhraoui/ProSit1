@@ -1,3 +1,5 @@
+package tn.tuniprob.gestionmagasin;
+
 import java.util.Date;
 
 public class produit {
