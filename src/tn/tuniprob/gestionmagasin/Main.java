@@ -14,6 +14,7 @@ public class Main {
         produit produit1 = new produit(1021, "Lait", "Delice", 0.0);
         produit produit2 = new produit(2510, "Yaourt", "Vitalait", 0.0);
         produit produit3 = new produit(3250, "Tomate", "Sicam", 1.200);
+        produit produit4 = new produit(1021, "Lait", "Delice", 0.0);
 
         System.out.println("\nLes produits aprés création:");
         produit1.Affiché();
@@ -54,12 +55,35 @@ public class Main {
         Magasin magasin2 = new Magasin(2,"Centre urbain nord");
         magasin2.ajouterProduit(produit3);
         System.out.println("\nCaractéristiques du magasin 2 :");
+        magasin1.ajouterProduit(produit3);
         magasin2.afficherCaracteristiques();
 
         Magasin[] magasins = {magasin1, magasin2};
         int totalProduits = compterTotalProduitsDansMagasins(magasins);
 
         System.out.println("\nNombre total de produits dans tous les magasins : " + totalProduits);
+
+        boolean areIdentical1 = produit1.comparer(produit4);
+        System.out.println("Produit 1 et Produit 4 sont identiques : " + areIdentical1);
+
+        boolean areIdentical2 = produit.comparer(produit1, produit3);
+        System.out.println("Produit 1 et Produit 3 sont identiques : " + areIdentical2);
+
+        boolean produitTrouve = magasin1.chercherProduit(produit1);
+        System.out.println("Produit 1 trouvé dans le magasin : " + produitTrouve);
+
+        produit produitInexistant = new produit(9999, "Chocolat", "Cote d'Or", 3.5);
+        boolean produitNonTrouve = magasin1.chercherProduit(produitInexistant);
+        System.out.println("Produit inexistant trouvé dans le magasin : " + produitNonTrouve);
+
+        System.out.println("\nSuppression du produit 'Yaourt':");
+        magasin1.supprimerProduit(produit2);
+
+        magasin1.afficherCaracteristiques();
+
+        Magasin magasinAvecPlusDeProduits = Magasin.magasinAvecPlusDeProduits(magasin1, magasin2);
+        System.out.println("\nLe magasin ayant le plus de produits est : " + magasinAvecPlusDeProduits.getadresse());
+
 
 
     }

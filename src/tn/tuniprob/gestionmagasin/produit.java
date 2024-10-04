@@ -68,5 +68,12 @@ public class produit {
                 ", Date dexpiration=" + date_dexpiration
                 ;
     }
+    public boolean comparer(produit autreProduit) {
+        return this.id == autreProduit.id && this.libellé.equals(autreProduit.libellé) && this.prix == autreProduit.prix;
+    }
+
+    public static boolean comparer(produit produit1, produit produit2) {
+        return produit1.id == produit2.id && produit1.libellé.equals(produit2.libellé) && produit1.prix == produit2.prix;
+    }
 
 }
