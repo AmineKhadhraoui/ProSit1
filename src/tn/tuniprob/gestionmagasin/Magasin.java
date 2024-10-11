@@ -1,12 +1,18 @@
 package tn.tuniprob.gestionmagasin;
 
+import tn.tuniprod.gestiondesemployés.Caissier;
+import tn.tuniprod.gestiondesemployés.Employé;
+import tn.tuniprod.gestiondesemployés.Responsable;
+import tn.tuniprod.gestiondesemployés.Vendeur;
+
 public class Magasin {
 
     private int id;
     private String adresse;
+    private String nom;
     private int capacite;
     private produit[] produits;
-
+    private Employé[] employés;
 
     public Magasin(int id, String adresse) {
         this.id = id;
@@ -15,6 +21,15 @@ public class Magasin {
         this.produits = new produit[capacite];
 
     }
+    public Magasin(int id, String adresse, String nom) {
+        this.id = id;
+        this.adresse = adresse;
+        this.nom = nom;
+        this.capacite = 50;
+        this.produits = new produit[capacite];
+
+    }
+
     public String getadresse() {
         return adresse;
     }
@@ -50,7 +65,7 @@ public class Magasin {
         System.out.println("Le produit '" + produit.getLibelle() + "' n'existe pas dans le magasin.");
     }
     public void afficherCaracteristiques() {
-        System.out.println("Magasin ID: " + id + ", Adresse: " + adresse);
+        System.out.println("Magasin ID: " + id + ", Adresse: " + adresse +" Nom: " + nom);
         System.out.println("Capacité: " + capacite + " produits");
         System.out.println("Produits dans le magasin:");
 
@@ -83,5 +98,84 @@ public class Magasin {
     public static Magasin magasinAvecPlusDeProduits(Magasin m1, Magasin m2) {
         return m1.compterProduits() > m2.compterProduits() ? m1 : m2;
     }
+
+    public void ajouterEmployé(Employé employé) {
+        for (int i = 0; i < employés.length; i++) {
+            if (employés[i] == null) {
+                employés[i] = employé;
+                System.out.println("Employé ajouté : " + employé.getNom());
+                return;
+            }
+        }
+        System.out.println("Le magasin a atteint sa capacité maximale d'employés.");
+    }
+
+    public void afficherEmployés() {
+        System.out.println("Magasin ID: " + id + ", Adresse: " + adresse);
+        for (Employé employé : employés) {
+            if (employé != null) {
+                System.out.println(employé);
+            }
+        }
+    }
+
+    public void afficherDetails() {
+        System.out.println("ID Magasin: " + id);
+        System.out.println("Nom: " + nom);
+        System.out.println("Adresse: " + adresse);
+        System.out.println("Produits:");
+        for (produit produit : produits) {
+            if (produit != null) {
+                System.out.println(produit);
+            }
+        }
+        System.out.println("Employés:");
+        for (Employé employé : employés) {
+            if (employé != null) {
+                System.out.println(employé);
+            }
+        }
+    }
+
+    public void afficherPrimesResponsables() {
+        System.out.println("Primes des responsables:");
+        for (Employé employé : employés) {
+            if (employé instanceof Responsable) {
+                Responsable responsable = (Responsable) employé;
+                System.out.println("Responsable: " + responsable.getNom() + ", Prime: " + responsable.getPrime());
+            }
+        }
+    }
+
+    public void afficherSalaires() {
+        System.out.println("Salaires des employés:");
+        for (Employé employé : employés) {
+            if (employé != null) {
+                System.out.println("Employé: " + employé.getNom() + ", Salaire: " + employé.calculerSalaire());
+            }
+        }
+    }
+
+    public void AfficheNbEmplyoeParType() {
+        int nbCaissier = 0;
+        int nbVendeur = 0;
+        int nbResponsable = 0;
+
+        for (Employé emp : employés) {
+            if (emp instanceof Caissier) {
+                nbCaissier++;
+            } else if (emp instanceof Vendeur) {
+                nbVendeur++;
+            } else if (emp instanceof Responsable) {
+                nbResponsable++;
+            }
+        }
+
+        System.out.println("Nombre de Caissiers : " + nbCaissier);
+        System.out.println("Nombre de Vendeurs : " + nbVendeur);
+        System.out.println("Nombre de Responsables : " + nbResponsable);
+    }
+
+
 
 }

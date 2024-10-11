@@ -1,5 +1,9 @@
 package tn.tuniprob.gestionmagasin;
 
+import tn.tuniprod.gestiondesemployés.Caissier;
+import tn.tuniprod.gestiondesemployés.Responsable;
+import tn.tuniprod.gestiondesemployés.Vendeur;
+
 import java.util.Date;
 
 
@@ -84,7 +88,45 @@ public class Main {
         Magasin magasinAvecPlusDeProduits = Magasin.magasinAvecPlusDeProduits(magasin1, magasin2);
         System.out.println("\nLe magasin ayant le plus de produits est : " + magasinAvecPlusDeProduits.getadresse());
 
+        /* la partie pour l'ajout des émployées*/
+        Magasin magasin3 = new Magasin(3, "Carrefour", "Centre-Ville");
+        Magasin magasin4 = new Magasin(4, "Monoprix", "Menzah 6");
 
+        Caissier caissier1 = new Caissier(1, "Mohsen", "Tunis", 160, 101);
+        Vendeur vendeur1 = new Vendeur(2, "Abdesmad", "Tunis", 180, 0.15);
+        Responsable responsable1 = new Responsable(3, "Eya", "Tunis", 200, 500);
+        Caissier caissier2 = new Caissier(4, "Donya", "Tunis", 150, 102);
+
+        magasin3.ajouterEmployé(caissier1);
+        magasin3.ajouterEmployé(vendeur1);
+        magasin3.ajouterEmployé(responsable1);
+        magasin3.ajouterEmployé(caissier2);
+
+        Caissier caissier3 = new Caissier(5, "Eve", "Tunis", 140, 103);
+        Vendeur vendeur2 = new Vendeur(6, "Frank", "Tunis", 160, 0.20);
+        Vendeur vendeur3 = new Vendeur(7, "Grace", "Tunis", 180, 0.18);
+        Responsable responsable2 = new Responsable(8, "Henry", "Tunis", 190, 550);
+
+        magasin4.ajouterEmployé(caissier3);
+        magasin4.ajouterEmployé(vendeur2);
+        magasin4.ajouterEmployé(vendeur3);
+        magasin4.ajouterEmployé(responsable2);
+
+        System.out.println("\nEmployés du magasin 3 :");
+        magasin3.afficherEmployés();
+
+        System.out.println("\nEmployés du magasin 4 :");
+        magasin4.afficherEmployés();
+
+        produit produit5 = new produit(5, "Lait", "vitalait", 1.2);
+        produit produit6 = new produit(6, "Pain" ,"Brunch", 0.5);
+        magasin3.ajouterProduit(produit1);
+        magasin4.ajouterProduit(produit2);
+
+        produit produit7 = new produit(7, "Lait", "vitalait", 1.2);
+        produit produit8 = new produit(8, "Pain" ,"Brunch", 0.5);
+        magasin3.ajouterProduit(produit1);
+        magasin4.ajouterProduit(produit2);
 
     }
     public static int compterTotalProduitsDansMagasins(Magasin[] magasins) {
