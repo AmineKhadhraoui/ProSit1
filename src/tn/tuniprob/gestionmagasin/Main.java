@@ -3,14 +3,14 @@ package tn.tuniprob.gestionmagasin;
 import tn.tuniprod.gestiondesemployés.Caissier;
 import tn.tuniprod.gestiondesemployés.Responsable;
 import tn.tuniprod.gestiondesemployés.Vendeur;
+import tn.gestionException.PrixNegatifException;
+import tn.gestionException.MagasinPleinException;
 
 import java.util.Date;
 
 
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
         produit ProduitVide = new produit();
         System.out.println("Produit vide:");
         ProduitVide.Affiché();
@@ -20,46 +20,57 @@ public class Main {
         produit produit3 = new produit(3250, "Tomate", "Sicam", 1.200);
         produit produit4 = new produit(1021, "Lait", "Delice", 0.0);
 
-        System.out.println("\nLes produits aprés création:");
+        System.out.println("\nLes produits après création:");
         produit1.Affiché();
         produit2.Affiché();
         produit3.Affiché();
 
         produit1.setPrix(0.700);
-        System.out.println("\nProduit 1 aprés modification:");
+        System.out.println("\nProduit 1 après modification:");
         produit1.Affiché();
 
         produit2.setPrix(0.500);
         produit3.setPrix(1.200);
 
-        System.out.println("\nLes produits aprés la modification des prix des autres produits" + ":");
+        System.out.println("\nLes produits après la modification des prix des autres produits :");
         produit1.Affiché();
         produit2.Affiché();
         produit3.Affiché();
-
-        System.out.println("\nLes produits avec toString():");
-        System.out.println(produit1.toString());
-        System.out.println(produit2.toString());
-        System.out.println(produit3.toString());
-
 
         produit1.setDateDexpiration(new Date(2024 - 1900, 11, 31));
         produit2.setDateDexpiration(new Date(2024 - 1900, 10, 15));
         produit3.setDateDexpiration(new Date(2024 - 1900, 9, 5));
-        System.out.println("\nLes produits avec les dates d'épiration:");
+        System.out.println("\nLes produits avec les dates d'expiration:");
         produit1.Affiché();
         produit2.Affiché();
         produit3.Affiché();
 
-        Magasin magasin1 = new Magasin(1,"charguia 2");
-        magasin1.ajouterProduit(produit1);
-        magasin1.ajouterProduit(produit2);
+        Magasin magasin1 = new Magasin(1, "charguia 2");
+
+        try {
+            magasin1.ajouterProduit(produit1);
+            magasin1.ajouterProduit(produit2);
+            magasin1.ajouterProduit(produit3);
+        } catch (MagasinPleinException e) {
+            System.out.println("Erreur : " + e.getMessage());
+        } catch (PrixNegatifException e) {
+            System.out.println("Erreur : " + e.getMessage());
+        }
+
         System.out.println("\nCaractéristiques du magasin 1 :");
         magasin1.afficherCaracteristiques();
-        Magasin magasin2 = new Magasin(2,"Centre urbain nord");
-        magasin2.ajouterProduit(produit3);
+
+        Magasin magasin2 = new Magasin(2, "Centre urbain nord");
+
+        try {
+            magasin2.ajouterProduit(produit3);
+        } catch (MagasinPleinException e) {
+            System.out.println("Erreur : " + e.getMessage());
+        } catch (PrixNegatifException e) {
+            System.out.println("Erreur : " + e.getMessage());
+        }
+
         System.out.println("\nCaractéristiques du magasin 2 :");
-        magasin1.ajouterProduit(produit3);
         magasin2.afficherCaracteristiques();
 
         Magasin[] magasins = {magasin1, magasin2};
@@ -88,7 +99,7 @@ public class Main {
         Magasin magasinAvecPlusDeProduits = Magasin.magasinAvecPlusDeProduits(magasin1, magasin2);
         System.out.println("\nLe magasin ayant le plus de produits est : " + magasinAvecPlusDeProduits.getadresse());
 
-        /* la partie pour l'ajout des émployées*/
+        // Partie pour l'ajout des employés
         Magasin magasin3 = new Magasin(3, "Carrefour", "Centre-Ville");
         Magasin magasin4 = new Magasin(4, "Monoprix", "Menzah 6");
 
@@ -119,16 +130,26 @@ public class Main {
         magasin4.afficherEmployés();
 
         produit produit5 = new produit(5, "Lait", "vitalait", 1.2);
-        produit produit6 = new produit(6, "Pain" ,"Brunch", 0.5);
-        magasin3.ajouterProduit(produit1);
-        magasin4.ajouterProduit(produit2);
+        produit produit6 = new produit(6, "Pain", "Brunch", 0.5);
+
+        try {
+            magasin3.ajouterProduit(produit5);
+            magasin4.ajouterProduit(produit6);
+        } catch (MagasinPleinException | PrixNegatifException e) {
+            System.out.println("Erreur : " + e.getMessage());
+        }
 
         produit produit7 = new produit(7, "Lait", "vitalait", 1.2);
-        produit produit8 = new produit(8, "Pain" ,"Brunch", 0.5);
-        magasin3.ajouterProduit(produit1);
-        magasin4.ajouterProduit(produit2);
+        produit produit8 = new produit(8, "Pain", "Brunch", 0.5);
 
+        try {
+            magasin3.ajouterProduit(produit7);
+            magasin4.ajouterProduit(produit8);
+        } catch (MagasinPleinException | PrixNegatifException e) {
+            System.out.println("Erreur : " + e.getMessage());
+        }
     }
+
     public static int compterTotalProduitsDansMagasins(Magasin[] magasins) {
         int total = 0;
         for (Magasin magasin : magasins) {

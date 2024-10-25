@@ -4,6 +4,8 @@ import tn.tuniprod.gestiondesemployés.Caissier;
 import tn.tuniprod.gestiondesemployés.Employé;
 import tn.tuniprod.gestiondesemployés.Responsable;
 import tn.tuniprod.gestiondesemployés.Vendeur;
+import tn.gestionException.MagasinPleinException;
+import tn.gestionException.PrixNegatifException;
 
 public class Magasin {
 
@@ -34,8 +36,8 @@ public class Magasin {
         return adresse;
     }
 
-    public void ajouterProduit(produit produit) {
-
+    public void ajouterProduit(produit produit) throws MagasinPleinException, PrixNegatifException {
+        // Check for duplicate product
         for (produit prod : produits) {
             if (prod != null && prod.comparer(produit)) {
                 System.out.println("Le produit '" + produit.getLibelle() + "' existe déjà dans le magasin.");
@@ -43,7 +45,12 @@ public class Magasin {
             }
         }
 
+        // Check for negative price
+        if (produit.getPrix() < 0) {
+            throw new PrixNegatifException("Impossible d'ajouter le produit : le prix est négatif.");
+        }
 
+        // Add product if space is available
         for (int i = 0; i < produits.length; i++) {
             if (produits[i] == null) {
                 produits[i] = produit;
@@ -51,7 +58,9 @@ public class Magasin {
                 return;
             }
         }
-        System.out.println("Le magasin a atteint sa capacité maximale de 50 produits.");
+
+        // Throw exception if store is at maximum capacity
+        throw new MagasinPleinException("Le magasin a atteint sa capacité maximale de 50 produits.");
     }
 
     public void supprimerProduit(produit produit) {
